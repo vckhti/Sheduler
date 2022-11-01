@@ -1,0 +1,39 @@
+<IFModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+</IFModule>
+
+<filesMatch ".(css|jpg|jpeg|png|gif|js|ico|woff|woff2|ttf|svg)$">
+    Header set Cache-Control "max-age=2592000, public"
+</filesMatch>
+
+<FilesMatch "\.(html|doc|pdf|docx)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </IfModule>
+    <IfModule mod_expires.c>
+        ExpiresActive Off
+    </IfModule>
+    <IfModule mod_headers.c>
+        FileETag None
+        Header unset ETag
+        Header unset Pragma
+        Header unset Cache-Control
+        Header unset Last-Modified
+        Header set Pragma "no-cache"
+        Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+        Header set Expires "Thu, 1 Jan 1970 00:00:00 GMT"
+    </IfModule>
+</FilesMatch>
+
+RewriteEngine On
+Redirect 301 /auth.php /login
+
+RewriteCond %{REQUEST_URI} ^\/api\/?.*$
+RewriteRule (.*) public/$1 [L]
+
+RewriteCond %{DOCUMENT_ROOT}/public/app/%{REQUEST_URI} -f
+RewriteRule (.*) public/app/$1 [L]
+
+RewriteRule (.*) public/app/index.html [L]
