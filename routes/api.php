@@ -15,7 +15,7 @@ use App\Http\Controllers\IdClientController;
 |
 */
 # external API
-Route::get('/v1/check_hotspot_ip/{ip}', [IdClientController::class, 'checkHotspotIp'])->middleware('custom.basic');
+Route::get('/v1/check_hotspot_ip/{ip}', [IdClientController::class, 'checkHotspotIp']);
 
 # idClient registration handlers
 Route::any('/idclient/handleNewIdentifications', [IdClientController::class, 'handleNewIdentifications']);

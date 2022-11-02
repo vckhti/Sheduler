@@ -5,11 +5,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: ${DOCKER_CONTAINER_NAME:api-gw-laravel}
+    container_name: ${DOCKER_CONTAINER_NAME:-Scheduler-laravel}
     tty: true
     restart: unless-stopped
     ports:
-      - ${DOCKER_CONTAINER_PORT:-80}:80
+      - ${DOCKER_CONTAINER_PORT:-80}:4200
     volumes:
       - ./:/var/www/html/
 

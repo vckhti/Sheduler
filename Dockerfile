@@ -45,6 +45,13 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 # Composer installation
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Node Js installation
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt -y install nodejs
+
+# Angular CLI installation
+RUN npm install -g @angular/cli
+
 # Xdebug configuration
 #xdebug.mode=develop,debug
 #xdebug.start_with_request=yes
