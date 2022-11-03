@@ -16,8 +16,24 @@ const routes: Routes = [
       },
 
       {
-        path: 'account',
+        path: 'main',
         loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule),
+      },
+      {
+        path: 'clients',
+        loadChildren: () => import('./modules/clients/clients.module').then(m => m.ClientsModule),
+      },
+      {
+        path: 'routers',
+        loadChildren: () => import('./modules/routers/routers.module').then(m => m.RoutersModule),
+      },
+      {
+        path: 'dictionary',
+        loadChildren: () => import('./modules/dictionary/dictionary.module').then(m => m.DictionaryModule),
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),
       },
 
     ],

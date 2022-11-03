@@ -1,1 +1,51 @@
-<p>dashboard component works!</p>
+<div class="container-fluid">
+  <div class="row">
+
+
+    <div class="col-md-3 col-lg-2 navbar-container bg-light">
+
+      <!-- Вертикальное меню -->
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="logo">
+        </div>
+        <!-- <a class="navbar-brand" href="#">Navbar</a>-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+          <!-- Пункты вертикального меню -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/main']"><span>Логические порты</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/clients']"><span>Клиенты</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/routers']"><span>Маршрутизаторы</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/dictionary']"><span>Справочники</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/settings']"><span>Настройки</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+<div class="col-md-9 col-lg-10 container">
+ <div class="text">
+   <router-outlet></router-outlet>
+ </div>
+
+</div>
+
+  </div>
+
+</div>
+
+
+
+

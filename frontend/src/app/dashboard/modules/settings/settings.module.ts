@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './components/main/main.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import {RouterModule, Routes} from "@angular/router";
+import {DictionaryComponent} from "../dictionary/components/dictionary/dictionary.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: SettingsComponent,
   }
 ];
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    SettingsComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
   ]
 })
-export class MainModule { }
+export class SettingsModule { }
