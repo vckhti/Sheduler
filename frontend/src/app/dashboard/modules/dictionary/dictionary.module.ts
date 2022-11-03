@@ -12,6 +12,8 @@ import {StoreModule} from "@ngrx/store";
 import {EffectsModule} from "@ngrx/effects";
 import {reducers} from "./store/reducers";
 import {RegisterEffect} from "./store/register.effect";
+import { DefaultDialogComponent } from './components/default-dialog/default-dialog.component';
+import {FormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
@@ -61,10 +63,12 @@ const routes: Routes = [
     TypeofportsComponent,
     TypeoftrafficComponent,
     TypeofclientsComponent,
+    DefaultDialogComponent,
 
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([RegisterEffect]),

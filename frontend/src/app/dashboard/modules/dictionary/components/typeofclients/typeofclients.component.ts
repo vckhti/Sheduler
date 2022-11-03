@@ -1,8 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {enterToTypeOfClientsAction} from "../../store/dictionary-actions";
 import {select, Store} from "@ngrx/store";
 import {Observable, Subject, Subscription, takeUntil} from "rxjs";
 import {isEnterTypeOfClientsSelector} from "../../store/selectors";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {DefaultDialogComponent} from "../default-dialog/default-dialog.component";
 
 @Component({
   selector: 'app-typeofclients',
@@ -15,7 +17,7 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
   onDestroySubject$: Subject<boolean>;
   tableData: any[] = [];
 
-  constructor(private store: Store) {
+  constructor(private dialog: MatDialog, private store: Store) {
     this.$table = new Observable<any>();
     this.subscriptions = new Subscription();
     this.onDestroySubject$ = new Subject();
@@ -45,4 +47,13 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
       )
     );
   }
+
+  addItem(): void {
+    let dialogRef = this.dialog.open(DefaultDialogComponent, {
+      data: ['Добавление клиента'],
+      height: '400px',
+      width: '600px',
+    });
+  }
+
 }
