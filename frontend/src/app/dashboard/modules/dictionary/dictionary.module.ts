@@ -8,7 +8,10 @@ import { SpeedsComponent } from './components/speeds/speeds.component';
 import { TypeofportsComponent } from './components/typeofports/typeofports.component';
 import { TypeoftrafficComponent } from './components/typeoftraffic/typeoftraffic.component';
 import { TypeofclientsComponent } from './components/typeofclients/typeofclients.component';
-import {DashboardComponent} from "../../components/dashboard/dashboard.component";
+import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from "@ngrx/effects";
+import {reducers} from "./store/reducers";
+import {RegisterEffect} from "./store/register.effect";
 
 
 const routes: Routes = [
@@ -57,11 +60,14 @@ const routes: Routes = [
     SpeedsComponent,
     TypeofportsComponent,
     TypeoftrafficComponent,
-    TypeofclientsComponent
+    TypeofclientsComponent,
+
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    StoreModule.forFeature('auth', reducers),
+    EffectsModule.forFeature([RegisterEffect]),
   ]
 })
 export class DictionaryModule { }

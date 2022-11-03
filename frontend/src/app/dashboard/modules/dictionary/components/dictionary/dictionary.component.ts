@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-dictionary',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DictionaryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
