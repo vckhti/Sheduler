@@ -58,7 +58,8 @@ on(
       isLoading: false,
       //добавить последний элемент в стор
       // (action.newItem)
-    })
+    }
+    )
   )
 )
 
