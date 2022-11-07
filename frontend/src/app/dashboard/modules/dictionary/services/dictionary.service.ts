@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
+import {clientTypeInterface} from "../types/clientType.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,27 @@ export class DictionaryService {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/allClientTypes';
 
     return this.http.get<any>(url)
+  }
+
+  addClient(client: any): Observable<any> {
+    const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/createClientType';
+    const args: clientTypeInterface = {
+
+      type: client
+    }
+    console.log('clientId', client);
+    //return of(null);
+    return this.http.post<any>(url, args.type)
+  }
+
+  editClient(id:number, client: string): Observable<any> {
+    const url = `http://10.5.1.208:8082/api/web/v1/clients/clientTypes/modifyClientType`;
+    const args: clientTypeInterface = {
+      id: id,
+      type: client
+    }
+    console.log('edit clientId', args);
+
+    return this.http.post<any>(url, args)
   }
 }

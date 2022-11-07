@@ -5,6 +5,7 @@ import {Observable, Subject, Subscription, takeUntil} from "rxjs";
 import {isEnterTypeOfClientsSelector} from "../../store/selectors";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DefaultDialogComponent} from "../default-dialog/default-dialog.component";
+import {clientTypeInterface} from "../../types/clientType.interface";
 
 @Component({
   selector: 'app-typeofclients',
@@ -48,12 +49,25 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
     );
   }
 
-  addItem(): void {
-    let dialogRef = this.dialog.open(DefaultDialogComponent, {
-      data: ['Добавление клиента'],
-      height: '400px',
-      width: '600px',
-    });
+  editClientType(clientType: (clientTypeInterface | null)): void {
+    if (clientType) {
+      let dialogRef = this.dialog.open(DefaultDialogComponent, {
+        data: [clientType],
+        height: '300px',
+        width: '600px',
+      });
+    } else if (clientType === null) {
+      const emptyType = {
+        id: null,
+        type: ''
+      }
+      let dialogRef = this.dialog.open(DefaultDialogComponent, {
+        data: emptyType,
+        height: '300px',
+        width: '600px',
+      });
+    }
+
   }
 
 }

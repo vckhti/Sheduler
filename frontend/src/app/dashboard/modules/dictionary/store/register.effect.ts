@@ -4,7 +4,8 @@ import {map, catchError, switchMap, tap} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
 
 import {
-  enterToTypeOfClientsAction, successFetchTypeOfClientsAction,
+  addTypeOfClientAction,
+  enterToTypeOfClientsAction, successAddTypeOfClientAction, successFetchTypeOfClientsAction,
 } from 'src/app/dashboard/modules/dictionary/store/dictionary-actions'
 import {DictionaryService} from "../services/dictionary.service";
 import {of} from "rxjs";
@@ -29,7 +30,26 @@ export class RegisterEffect {
         )
       })
     )
+  )
 
+  addAndEditTypeOfClients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addTypeOfClientAction),
+      switchMap((typeOfClient: any) => {
+       return this.dictionaryService.addClient(typeOfClient.typeOfClient).pipe(
+          map((response: any) => {
+            console.log('resp21:', response);
+            return successAddTypeOfClientAction({newItem: response.data.data})
+          }),
+          tap((r) => console.log('r', r))
+        )
+      }),
+      catchError((errorResponse:any) => {
+        return of(
+          fetchTypeOfClientsFailureAction({errors: errorResponse})
+        )
+      })
+    )
   )
 
 
