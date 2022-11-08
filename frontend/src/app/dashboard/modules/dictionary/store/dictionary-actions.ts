@@ -26,3 +26,21 @@ export const successAddTypeOfClientAction = createAction(
   props<{newItem: clientTypeInterface}>()
 );
 
+export const addTypeOfClientsFailureAction = createAction(
+  ActionTypes.TYPEOFCLIENTS_ADD_FAILURE,
+  props<{errors: any}>()
+);
+
+export const deleteTypeOfClientAction = createAction(
+  ActionTypes.TYPEOFCLIENTS_DELETE,
+  props<{typeOfClient: clientTypeInterface}>()
+);
+
+export const successDeleteTypeOfClientAction = createAction(
+  ActionTypes.TYPEOFCLIENTS_DELETE_SUCCESS
+);
+
+export const deleteTypeOfClientsFailureAction = createAction(
+  ActionTypes.TYPEOFCLIENTS_DELETE_FAILURE,
+  props<{errors: any}>()
+);

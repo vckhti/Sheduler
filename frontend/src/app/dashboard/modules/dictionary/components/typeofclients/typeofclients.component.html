@@ -1,4 +1,4 @@
-<div >
+<div>
   <div class="addbutton">
     <button class="btn btn-primary" (click)="editClientType(null)">Добавить</button>
   </div>
@@ -7,20 +7,21 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">Тип клиента</th>
+      <th scope="col">Удалить</th>
+      <!--<th scope="col">Удалить</th>-->
 
     </tr>
     </thead>
     <tbody>
-    <tr class="tr-item" *ngFor="let item of tableData; let i = index" (click)="editClientType(item)">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.type}}</td>
+    <tr *ngFor="let item of tableData; let i = index">
+      <th class="th-item" scope="row" (click)="editClientType(item)">{{item.id}}</th>
+      <td class="tr-item" (click)="editClientType(item)"><span class="edit-svg">{{item.type}}</span>
+        <div ></div>
+
+      </td>
+      <td><div class="delete-svg" (click)="deleteClientType(item)"></div></td>
 
     </tr>
-    <!--<tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>-->
     </tbody>
   </table>
 </div>

@@ -1,10 +1,11 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {clientTypeInterface} from "./dashboard/modules/dictionary/types/clientType.interface";
 import {DictionaryService} from "./dashboard/modules/dictionary/services/dictionary.service";
-import {Store} from "@ngrx/store";
-import {Observable, Subject, Subscription} from "rxjs";
-
+import {select, Store} from "@ngrx/store";
+import {filter, Observable, Subject, Subscription} from "rxjs";
+import {isEnterTypeOfClientsSelector, isLoadingSelector} from "./dashboard/modules/dictionary/store/selectors";
+import {isEnter2TypeOfClientsSelector} from "./store/selectors";
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Observable, Subject, Subscription} from "rxjs";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'Project';
   subscriptions: Subscription;
   loading: boolean = false;
@@ -25,17 +26,30 @@ export class AppComponent implements OnInit, OnDestroy {
     this.$load = new Observable();
   }
 
+
+
   ngOnInit(): void {
-    /*this.subscriptions = this.store.select(isLoadingSelector).subscribe(
-      (value: any) => {
-        console.log('vvv',value);
-        this.loading = value;
-      }
-    )*/
+    // setTimeout(() => {
+    //   this.subscriptions = this.store.pipe(
+    //     select(isEnter2TypeOfClientsSelector)/*,
+    //     filter(Boolean)*/
+    //   ).subscribe(
+    //     (value: any) => {
+    //
+    //       console.log('vvv', value);
+    //
+    //
+    //       //this.loading = value;
+    //     }
+    //   )
+    // }, 2000);
+
 
   }
 
   ngOnDestroy(): void {
-   //this.subscriptions.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
+
+
 }

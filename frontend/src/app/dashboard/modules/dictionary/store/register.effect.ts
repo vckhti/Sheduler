@@ -4,12 +4,17 @@ import {map, catchError, switchMap, tap} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
 
 import {
-  addTypeOfClientAction,
-  enterToTypeOfClientsAction, successAddTypeOfClientAction, successFetchTypeOfClientsAction,
+  addTypeOfClientAction, addTypeOfClientsFailureAction,
+  deleteTypeOfClientAction, deleteTypeOfClientsFailureAction,
+  enterToTypeOfClientsAction,
+  successAddTypeOfClientAction,
+  successDeleteTypeOfClientAction,
+  successFetchTypeOfClientsAction,
 } from 'src/app/dashboard/modules/dictionary/store/dictionary-actions'
 import {DictionaryService} from "../services/dictionary.service";
 import {of} from "rxjs";
 import {fetchTypeOfClientsFailureAction} from "src/app/dashboard/modules/dictionary/store/dictionary-actions";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class RegisterEffect {
@@ -20,8 +25,8 @@ export class RegisterEffect {
         return this.dictionaryService.fetchRegions().pipe(
           map((response: any) => {
             return successFetchTypeOfClientsAction({data: response})
-          }),
-          tap((r) => console.log('r', r))
+          })/*,
+          tap((r) => console.log('r', r))*/
         )
       }),
       catchError((errorResponse:any) => {
@@ -41,18 +46,38 @@ export class RegisterEffect {
             console.log('resp21:', response);
             return successAddTypeOfClientAction({newItem: response.data.data})
           }),
-          tap((r) => console.log('r', r))
+          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()) )
         )
       }),
       catchError((errorResponse:any) => {
         return of(
-          fetchTypeOfClientsFailureAction({errors: errorResponse})
+          addTypeOfClientsFailureAction({errors: errorResponse})
+        )
+      })
+    )
+  )
+
+  deleteTypeOfClients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteTypeOfClientAction),
+      switchMap((typeOfClient: any) => {
+        return this.dictionaryService.deleteClient(typeOfClient.typeOfClient).pipe(
+          map((response: any) => {
+            console.log('delete:', response);
+            return successDeleteTypeOfClientAction()
+          }),
+          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()) )
+        )
+      }),
+      catchError((errorResponse:any) => {
+        return of(
+          deleteTypeOfClientsFailureAction({errors: errorResponse})
         )
       })
     )
   )
 
 
-  constructor(private actions$: Actions, private dictionaryService: DictionaryService) {
+  constructor(private actions$: Actions, private dictionaryService: DictionaryService, private store: Store) {
   }
 }

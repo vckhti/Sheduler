@@ -1,26 +1,33 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {enterToTypeOfClientsAction} from "../../store/dictionary-actions";
+import {Component, Inject, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {deleteTypeOfClientAction, enterToTypeOfClientsAction} from "../../store/dictionary-actions";
 import {select, Store} from "@ngrx/store";
 import {Observable, Subject, Subscription, takeUntil} from "rxjs";
 import {isEnterTypeOfClientsSelector} from "../../store/selectors";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DefaultDialogComponent} from "../default-dialog/default-dialog.component";
 import {clientTypeInterface} from "../../types/clientType.interface";
+import {DictionaryService} from "../../services/dictionary.service";
 
 @Component({
   selector: 'app-typeofclients',
   templateUrl: './typeofclients.component.html',
   styleUrls: ['./typeofclients.component.scss']
 })
-export class TypeofclientsComponent implements OnInit, OnDestroy {
+export class TypeofclientsComponent implements OnInit, OnDestroy, OnChanges {
   $table: Observable<any>;
   subscriptions: Subscription;
+  subscriptionForDelete: Subscription;
   onDestroySubject$: Subject<boolean>;
   tableData: any[] = [];
 
-  constructor(private dialog: MatDialog, private store: Store) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store,
+    private dictionaryService: DictionaryService
+  ) {
     this.$table = new Observable<any>();
     this.subscriptions = new Subscription();
+    this.subscriptionForDelete = new Subscription();
     this.onDestroySubject$ = new Subject();
   }
 
@@ -31,6 +38,7 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroySubject$.next(true);
     this.onDestroySubject$.complete();
+    this.subscriptionForDelete.unsubscribe();
   }
 
   initializeListeners(): void {
@@ -47,6 +55,13 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  deleteClientType(clientType: clientTypeInterface): void {
+    /*this.subscriptionForDelete = this.dictionaryService.deleteClient(clientType).subscribe((res) => {
+      console.log('res', res);
+    });*/
+    this.store.dispatch(deleteTypeOfClientAction({typeOfClient: clientType}));
   }
 
   editClientType(clientType: (clientTypeInterface | null)): void {
@@ -68,6 +83,10 @@ export class TypeofclientsComponent implements OnInit, OnDestroy {
       });
     }
 
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes);
   }
 
 }

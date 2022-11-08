@@ -12,11 +12,18 @@ export class DictionaryService {
 
   fetchRegions(): Observable<any> {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/allClientTypes';
+    const https = 'https://10.5.1.208:8443/api/web/v1/clients/clientTypes/allClientTypes';
 
     return this.http.get<any>(url)
   }
 
-  addClient(client: any): Observable<any> {
+  deleteClient(client: clientTypeInterface): Observable<any>{
+    const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/deleteClientType';
+
+    return this.http.delete<any>(url, {body: {id: client.id}})
+  }
+
+  addClient(client: string): Observable<any> {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/createClientType';
     const args: clientTypeInterface = {
 
@@ -24,7 +31,7 @@ export class DictionaryService {
     }
     console.log('clientId', client);
     //return of(null);
-    return this.http.post<any>(url, args.type)
+    return this.http.post<any>(url, args)
   }
 
   editClient(id:number, client: string): Observable<any> {
@@ -35,6 +42,6 @@ export class DictionaryService {
     }
     console.log('edit clientId', args);
 
-    return this.http.post<any>(url, args)
+    return this.http.put<any>(url, args)
   }
 }

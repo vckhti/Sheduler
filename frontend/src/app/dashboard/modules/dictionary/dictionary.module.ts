@@ -14,6 +14,7 @@ import {reducers} from "./store/reducers";
 import {RegisterEffect} from "./store/register.effect";
 import { DefaultDialogComponent } from './components/default-dialog/default-dialog.component';
 import {FormsModule} from "@angular/forms";
+import {LoadingModule} from "../../../shared/modules/loading/loading.module";
 
 
 const routes: Routes = [
@@ -72,6 +73,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([RegisterEffect]),
+    LoadingModule
   ]
 })
 export class DictionaryModule { }

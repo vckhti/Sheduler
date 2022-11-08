@@ -9,4 +9,10 @@ export const authFeatureSelector = createFeatureSelector<
 export const isEnterTypeOfClientsSelector = createSelector(
   authFeatureSelector,
   (authState: AuthStateInterface) => authState.data
-)
+);
+
+export const isLoadingSelector = createSelector(
+  authFeatureSelector,
+  (authState: AuthStateInterface) => authState.isLoading
+);
+

@@ -47,7 +47,7 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(addTypeOfClientAction({typeOfClient: this.clientTypeName}));
       this.closeWindow();
-      this.store.dispatch(enterToTypeOfClientsAction());
+      //this.store.dispatch(enterToTypeOfClientsAction());
     } else {
       this.subscriptions2 = this.dictionaryService.editClient(this.clientTypeId ,this.clientTypeName).subscribe(
         (v) => {

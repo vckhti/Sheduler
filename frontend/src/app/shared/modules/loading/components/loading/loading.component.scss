@@ -4,7 +4,7 @@
   position: relative;
   left: 50%;
   top: 50%;
-  z-index: 5;
+  z-index: 5 !important;
   width: 40px;
   height: 40px;
   -webkit-animation-name: rotation;

@@ -2,6 +2,43 @@
   text-align: right;
 }
 
+.tr-item {
+}
+
 .tr-item:hover {
+  cursor: pointer;
+}
+
+.th-item:hover {
+  cursor: pointer;
+}
+
+.edit-svg {
+  //max-height: 10px;
+  font-size: 16px;
+}
+
+.edit-svg::after {
+  content: "";
+  opacity: 10%;
+  content: '';
+  display: inline-block;
+  background: url("../../assets/icons/pen-to-square-solid.svg") no-repeat;
+  height: 2px;
+  width: 56px;
+  width: 11px;
+  height: 11px;
+  margin-left: 10px;
+}
+
+.edit-svg:hover::after {
+  opacity: 100%;
+}
+
+.delete-svg {
+  width: 14px;
+  height: 14px;
+  background: url("../../assets/icons/trash-can-solid.svg") no-repeat 0.5%;
+  margin-left: 30px;
   cursor: pointer;
 }
