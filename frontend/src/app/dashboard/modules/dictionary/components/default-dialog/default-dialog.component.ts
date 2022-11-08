@@ -4,7 +4,11 @@ import {DictionaryService} from "../../services/dictionary.service";
 import {Store} from "@ngrx/store";
 import {Subject, Subscription} from "rxjs";
 import {clientTypeInterface} from "../../types/clientType.interface";
-import {addTypeOfClientAction, enterToTypeOfClientsAction} from "../../store/dictionary-actions";
+import {
+  addTypeOfClientAction,
+  deleteTypeOfClientAction,
+  enterToTypeOfClientsAction
+} from "../../store/dictionary-actions";
 
 @Component({
   selector: 'app-default-dialog',
@@ -44,17 +48,23 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
 
   saveClient(): void {
     if (this.clientTypeId === null) {
+      const typeOfClient: clientTypeInterface = {
+        id: null,
+        type: this.clientTypeName
+      }
 
-      this.store.dispatch(addTypeOfClientAction({typeOfClient: this.clientTypeName}));
+      this.store.dispatch(addTypeOfClientAction({typeOfClient: typeOfClient}));
       this.closeWindow();
       //this.store.dispatch(enterToTypeOfClientsAction());
     } else {
-      this.subscriptions2 = this.dictionaryService.editClient(this.clientTypeId ,this.clientTypeName).subscribe(
-        (v) => {
-          this.closeWindow();
-        }
-      )
-      this.store.dispatch(enterToTypeOfClientsAction());
+      const typeOfClient: clientTypeInterface = {
+        id: this.clientTypeId,
+        type: this.clientTypeName
+      }
+      this.store.dispatch(addTypeOfClientAction({typeOfClient: typeOfClient}));
+      this.closeWindow();
+
+      //this.store.dispatch(enterToTypeOfClientsAction());
     }
 
   }
@@ -64,6 +74,12 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
   }
 
   confirmDelete(): void {
+    const thisTypeOfClient: clientTypeInterface = {
+      id: this.clientTypeId,
+      type: this.clientTypeName
+    }
+    this.store.dispatch(deleteTypeOfClientAction({typeOfClient: thisTypeOfClient}));
+    this.closeWindow();
 
   }
 

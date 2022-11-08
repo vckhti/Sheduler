@@ -23,25 +23,18 @@ export class DictionaryService {
     return this.http.delete<any>(url, {body: {id: client.id}})
   }
 
-  addClient(client: string): Observable<any> {
+  addClient(client: clientTypeInterface): Observable<any> {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/createClientType';
-    const args: clientTypeInterface = {
 
-      type: client
-    }
     console.log('clientId', client);
-    //return of(null);
-    return this.http.post<any>(url, args)
+    return this.http.post<any>(url, client)
   }
 
-  editClient(id:number, client: string): Observable<any> {
+  editClient(client: clientTypeInterface): Observable<any> {
     const url = `http://10.5.1.208:8082/api/web/v1/clients/clientTypes/modifyClientType`;
-    const args: clientTypeInterface = {
-      id: id,
-      type: client
-    }
-    console.log('edit clientId', args);
 
-    return this.http.put<any>(url, args)
+    console.log('edit clientId', client);
+
+    return this.http.put<any>(url, client)
   }
 }

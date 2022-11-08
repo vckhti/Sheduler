@@ -18,7 +18,7 @@ export const fetchTypeOfClientsFailureAction = createAction(
 
 export const addTypeOfClientAction = createAction(
   ActionTypes.TYPEOFCLIENTS_ADD,
-  props<{typeOfClient: string}>()
+  props<{typeOfClient: clientTypeInterface}>()
 );
 
 export const successAddTypeOfClientAction = createAction(

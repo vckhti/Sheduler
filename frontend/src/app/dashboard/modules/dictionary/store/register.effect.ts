@@ -29,7 +29,7 @@ export class RegisterEffect {
           tap((r) => console.log('r', r))*/
         )
       }),
-      catchError((errorResponse:any) => {
+      catchError((errorResponse: any) => {
         return of(
           fetchTypeOfClientsFailureAction({errors: errorResponse})
         )
@@ -41,15 +41,25 @@ export class RegisterEffect {
     this.actions$.pipe(
       ofType(addTypeOfClientAction),
       switchMap((typeOfClient: any) => {
-       return this.dictionaryService.addClient(typeOfClient.typeOfClient).pipe(
+        if (!typeOfClient?.typeOfClient?.id) {
+          return this.dictionaryService.addClient(typeOfClient.typeOfClient).pipe(
+            map((response: any) => {
+              console.log('r1:', response);
+              return successAddTypeOfClientAction({newItem: response.data.data})
+            }),
+            tap(() => this.store.dispatch(enterToTypeOfClientsAction()))
+          )
+        }
+        return this.dictionaryService.editClient(typeOfClient.typeOfClient).pipe(
           map((response: any) => {
-            console.log('resp21:', response);
+            console.log('r2:', response);
             return successAddTypeOfClientAction({newItem: response.data.data})
           }),
-          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()) )
+          tap(() => this.store.dispatch(enterToTypeOfClientsAction()))
         )
+
       }),
-      catchError((errorResponse:any) => {
+      catchError((errorResponse: any) => {
         return of(
           addTypeOfClientsFailureAction({errors: errorResponse})
         )
@@ -62,14 +72,13 @@ export class RegisterEffect {
       ofType(deleteTypeOfClientAction),
       switchMap((typeOfClient: any) => {
         return this.dictionaryService.deleteClient(typeOfClient.typeOfClient).pipe(
-          map((response: any) => {
-            console.log('delete:', response);
+          map(() => {
             return successDeleteTypeOfClientAction()
           }),
-          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()) )
+          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()))
         )
       }),
-      catchError((errorResponse:any) => {
+      catchError((errorResponse: any) => {
         return of(
           deleteTypeOfClientsFailureAction({errors: errorResponse})
         )
