@@ -1,18 +1,18 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store'
-import {AuthStateInterface} from "../types/authState.interface";
+import {TypeOfClientStateInterface} from "../types/authState.interface";
 
 export const authFeatureSelector = createFeatureSelector<
   any,
-  AuthStateInterface
->('auth')
+  TypeOfClientStateInterface
+>('typeofclient')
 
 export const isEnterTypeOfClientsSelector = createSelector(
   authFeatureSelector,
-  (authState: AuthStateInterface) => authState.data
+  (authState: TypeOfClientStateInterface) => authState.data
 );
 
 export const isLoadingSelector = createSelector(
   authFeatureSelector,
-  (authState: AuthStateInterface) => authState.isLoading
+  (authState: TypeOfClientStateInterface) => authState.isLoading
 );
 

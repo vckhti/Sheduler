@@ -62,7 +62,6 @@ export class DefaultDialogComponent implements OnInit, OnDestroy, AfterViewInit 
 
       this.store.dispatch(addTypeOfClientAction({typeOfClient: typeOfClient}));
       this.closeWindow();
-      //this.store.dispatch(enterToTypeOfClientsAction());
     } else {
       const typeOfClient: clientTypeInterface = {
         id: this.clientTypeId,
@@ -71,7 +70,6 @@ export class DefaultDialogComponent implements OnInit, OnDestroy, AfterViewInit 
       this.store.dispatch(addTypeOfClientAction({typeOfClient: typeOfClient}));
       this.closeWindow();
 
-      //this.store.dispatch(enterToTypeOfClientsAction());
     }
 
   }

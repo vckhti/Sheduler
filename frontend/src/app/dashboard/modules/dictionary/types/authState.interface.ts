@@ -1,9 +1,7 @@
 
-export interface AuthStateInterface {
-  isSubmitting: boolean
+export interface TypeOfClientStateInterface {
   isLoggedIn: boolean | null
   isLoading: boolean
-  flag?: boolean | null
   data: any | null
   errors: any | null
 }

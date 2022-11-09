@@ -72,7 +72,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('auth', reducers),
+    StoreModule.forFeature('typeofclient', reducers),
     EffectsModule.forFeature([RegisterEffect]),
     LoadingModule
   ]

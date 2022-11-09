@@ -1,11 +1,6 @@
-import {AfterContentInit, Component, Inject, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {clientTypeInterface} from "./dashboard/modules/dictionary/types/clientType.interface";
-import {DictionaryService} from "./dashboard/modules/dictionary/services/dictionary.service";
-import {select, Store} from "@ngrx/store";
-import {filter, Observable, Subject, Subscription} from "rxjs";
-import {isEnterTypeOfClientsSelector, isLoadingSelector} from "./dashboard/modules/dictionary/store/selectors";
-import {isEnter2TypeOfClientsSelector} from "./store/selectors";
+import { Component, OnInit} from '@angular/core';
+import { Store} from "@ngrx/store";
+import {Observable, Subscription} from "rxjs";
 
 
 @Component({

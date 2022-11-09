@@ -1,6 +1,9 @@
 import {createReducer, on, Action} from '@ngrx/store'
 
-import {AuthStateInterface} from 'src/app/dashboard/modules/dictionary/types/authState.interface'
+import {
+
+  TypeOfClientStateInterface
+} from 'src/app/dashboard/modules/dictionary/types/authState.interface'
 
 import {
   addTypeOfClientAction, addTypeOfClientsFailureAction, deleteTypeOfClientAction, deleteTypeOfClientsFailureAction,
@@ -11,11 +14,9 @@ import {
 } from 'src/app/dashboard/modules/dictionary/store/dictionary-actions'
 
 
-const initialState: AuthStateInterface = {
-  isSubmitting: false,
+const initialState: TypeOfClientStateInterface = {
   isLoggedIn: null,
   isLoading: false,
-  flag: null,
   data: null,
   errors: null
 
@@ -25,7 +26,7 @@ const authReducer = createReducer(
   initialState,
   on(
     enterToTypeOfClientsAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
       ...state,
       isLoading: true,
       errors: null
@@ -33,7 +34,7 @@ const authReducer = createReducer(
   ),
   on(
     successFetchTypeOfClientsAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
       ...state,
       isLoading: false,
       data: action.data,
@@ -41,21 +42,21 @@ const authReducer = createReducer(
   ),
   on(
     fetchTypeOfClientsFailureAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
       ...state,
       errors: action.errors,
     })
   ),
   on(
     addTypeOfClientAction,
-    (state): AuthStateInterface => ({
+    (state): TypeOfClientStateInterface => ({
       ...state,
       isLoading: true
     })
   ),
   on(
     successAddTypeOfClientAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
         ...state,
         isLoading: false,
         //добавить последний элемент в стор
@@ -65,7 +66,7 @@ const authReducer = createReducer(
   ),
   on(
     addTypeOfClientsFailureAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
         ...state,
         errors: action.errors,
       }
@@ -73,14 +74,14 @@ const authReducer = createReducer(
   ),
   on(
     deleteTypeOfClientAction,
-    (state): AuthStateInterface => ({
+    (state): TypeOfClientStateInterface => ({
       ...state,
       isLoading: true
     })
   ),
   on(
     successDeleteTypeOfClientAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
         ...state,
         isLoading: false,
         //удалить последний элемент из стора
@@ -90,7 +91,7 @@ const authReducer = createReducer(
   ),
   on(
     deleteTypeOfClientsFailureAction,
-    (state, action): AuthStateInterface => ({
+    (state, action): TypeOfClientStateInterface => ({
         ...state,
         errors: action.errors,
       }
@@ -99,6 +100,6 @@ const authReducer = createReducer(
 
 )
 
-export function reducers(state: AuthStateInterface, action: Action) {
+export function reducers(state: TypeOfClientStateInterface, action: Action) {
   return authReducer(state, action)
 }
