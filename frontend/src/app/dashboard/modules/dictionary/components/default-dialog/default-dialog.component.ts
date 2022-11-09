@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DictionaryService} from "../../services/dictionary.service";
 import {Store} from "@ngrx/store";
@@ -9,13 +9,17 @@ import {
   deleteTypeOfClientAction,
   enterToTypeOfClientsAction
 } from "../../store/dictionary-actions";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-default-dialog',
   templateUrl: './default-dialog.component.html',
   styleUrls: ['./default-dialog.component.scss']
 })
-export class DefaultDialogComponent implements OnInit, OnDestroy {
+export class DefaultDialogComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild("myInput") private _inputElement: ElementRef;
+  registrationForm: FormGroup;
+  firstName: FormControl;
   clientTypeId: number | null = null;
   clientTypeName: string = '';
   subscriptions: Subscription;
@@ -31,6 +35,7 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
     this.subscriptions = new Subscription();
     this.subscriptions2 = new Subscription();
     this.onDestroySubject$ = new Subject();
+    this.firstName = new FormControl;
   }
 
   ngOnInit(): void {
@@ -38,6 +43,8 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
       this.clientTypeName = this.data[0].type;
       this.clientTypeId = this.data[0].id;
     }
+    this.createFormControls();
+    this.createForm();
   }
 
   ngOnDestroy() {
@@ -82,5 +89,30 @@ export class DefaultDialogComponent implements OnInit, OnDestroy {
     this.closeWindow();
 
   }
+
+  onSubmit(): void {
+    if (this.registrationForm.valid) {
+      console.log("Отправка данных на сервер");
+      console.log(this.registrationForm.value);
+    }
+  }
+
+  createFormControls() {
+    this.firstName = new FormControl("", Validators.required);
+
+  }
+
+  createForm() {
+    this.registrationForm = new FormGroup({
+      name: new FormGroup({
+        firstName: this.firstName,
+      }),
+    });
+  }
+
+  ngAfterViewInit(): void {
+   this._inputElement.nativeElement.focus();
+  }
+
 
 }

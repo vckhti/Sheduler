@@ -2,16 +2,31 @@
   <span class="title__text">Карточка редактирования Типа клиента</span>
   <button class="title__close btn btn-close" (click)="closeWindow()"></button>
 </div>
-<div class="container">
-  <span class="container__text">Тип клиента</span>
-  <input class="container__input" [(ngModel)]="clientTypeName">
-</div>
+<form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <fieldset formGroupName="name">
+    <div class="form-group" [ngClass]="{
+      'has-error': firstName.invalid && firstName.dirty,
+      'has-success': firstName.valid && firstName.dirty }">
+      <div class="container">
+        <span class="container__text">Тип клиента</span>
+        <input class="container__input" formControlName="firstName" [(ngModel)]="clientTypeName" #myInput>
+      </div>
+    </div>
+  </fieldset>
   <div class="content">
     <button class="content__delete btn btn-warning" *ngIf="clientTypeId" (click)="confirmDelete()"> Удалить</button>
-    <button class="content__add btn btn-primary" (click)="saveClient()">Сохранить</button>
+    <button class="content__add btn btn-primary" (click)="saveClient()" [disabled]="registrationForm.invalid">
+      Сохранить
+    </button>
     <button class="content__cancel btn btn-dark" (click)="closeWindow()"> Отмена</button>
-    <div class="add-button">
-
 
   </div>
-</div>
+  <div class="alert alert-danger" *ngIf="firstName.invalid && firstName.dirty">
+    Поле обязательное для ввода
+  </div>
+</form>
+
+<!-- TODO: Если текущее значение инпута не менялось, то не давать сохранять! -->
+<!--<pre>{{registrationForm.value |json}}</pre>-->
+
+
