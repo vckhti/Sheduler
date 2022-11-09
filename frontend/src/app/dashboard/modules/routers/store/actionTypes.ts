@@ -1,0 +1,11 @@
+export enum ActionTypes {
+  ROUTERS_ENTER = '[ROUTERS] Enter',
+  ROUTERS_FETCH_SUCCESS = '[ROUTERS] Fetch success',
+  ROUTERS_FETCH_FAILURE = '[ROUTERS] Fetch failure',
+  ROUTERS_ADD = '[ROUTERS] Save (add or edit) ROUTER',
+  ROUTERS_ADD_SUCCESS = '[ROUTERS] Success ROUTER added ',
+  ROUTERS_ADD_FAILURE = '[ROUTERS] Add ROUTER failure',
+  ROUTERS_DELETE = '[ROUTERS] Delete ROUTER',
+  ROUTERS_DELETE_SUCCESS = '[ROUTERS] Delete ROUTER success',
+  ROUTERS_DELETE_FAILURE = '[ROUTERS] Delete ROUTER failure',
+}

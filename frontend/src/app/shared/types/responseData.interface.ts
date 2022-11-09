@@ -1,5 +1,6 @@
 
 export interface responseDataInterface {
-  data: any[]
+  data: any[],
+  error: string,
   success : boolean
 }

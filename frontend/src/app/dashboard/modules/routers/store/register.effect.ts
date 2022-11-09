@@ -1,21 +1,17 @@
 import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap, tap} from 'rxjs/operators'
-import {HttpErrorResponse} from '@angular/common/http'
 
 import {
   addTypeOfClientAction, addTypeOfClientsFailureAction,
-  deleteTypeOfClientAction, deleteTypeOfClientsFailureAction,
   enterToTypeOfClientsAction,
   successAddTypeOfClientAction,
-  successDeleteTypeOfClientAction,
-  successFetchTypeOfClientsAction,
-} from 'src/app/dashboard/modules/dictionary/store/dictionary-actions'
+  successFetchTypeOfClientsAction,fetchTypeOfClientsFailureAction
+} from 'src/app/dashboard/modules/routers/store/routers-actions'
 import {DictionaryService} from "../services/dictionary.service";
 import {of} from "rxjs";
-import {fetchTypeOfClientsFailureAction} from "src/app/dashboard/modules/dictionary/store/dictionary-actions";
 import {Store} from "@ngrx/store";
-import {typeOfClientResponseInterface} from "../types/typeOfClientResponse.interface";
+import {responseDataInterface} from "../../../../shared/types/responseData.interface";
 
 @Injectable()
 export class RegisterEffect {
@@ -24,10 +20,7 @@ export class RegisterEffect {
       ofType(enterToTypeOfClientsAction),
       switchMap((v) => {
         return this.dictionaryService.fetchRegions().pipe(
-          switchMap((response: typeOfClientResponseInterface) => {
-            return this.dictionaryService.sortByType(response)
-          }),
-          map((response: typeOfClientResponseInterface) => {
+          map((response: responseDataInterface) => {
             console.log('for normalaze:', response);
             return successFetchTypeOfClientsAction({data: response})
           })/*,
@@ -67,25 +60,6 @@ export class RegisterEffect {
       catchError((errorResponse: any) => {
         return of(
           addTypeOfClientsFailureAction({errors: errorResponse})
-        )
-      })
-    )
-  )
-
-  deleteTypeOfClients$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(deleteTypeOfClientAction),
-      switchMap((typeOfClient: any) => {
-        return this.dictionaryService.deleteClient(typeOfClient.typeOfClient).pipe(
-          map(() => {
-            return successDeleteTypeOfClientAction()
-          }),
-          tap((r) => this.store.dispatch(enterToTypeOfClientsAction()))
-        )
-      }),
-      catchError((errorResponse: any) => {
-        return of(
-          deleteTypeOfClientsFailureAction({errors: errorResponse})
         )
       })
     )

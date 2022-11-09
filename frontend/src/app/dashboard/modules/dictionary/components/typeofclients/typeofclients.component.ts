@@ -13,7 +13,7 @@ import {DictionaryService} from "../../services/dictionary.service";
   templateUrl: './typeofclients.component.html',
   styleUrls: ['./typeofclients.component.scss']
 })
-export class TypeofclientsComponent implements OnInit, OnDestroy, OnChanges {
+export class TypeofclientsComponent implements OnInit, OnDestroy {
   $table: Observable<any>;
   subscriptions: Subscription;
   subscriptionForDelete: Subscription;
@@ -58,9 +58,6 @@ export class TypeofclientsComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   deleteClientType(clientType: clientTypeInterface): void {
-    /*this.subscriptionForDelete = this.dictionaryService.deleteClient(clientType).subscribe((res) => {
-      console.log('res', res);
-    });*/
     this.store.dispatch(deleteTypeOfClientAction({typeOfClient: clientType}));
   }
 
@@ -85,8 +82,6 @@ export class TypeofclientsComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
-  }
+
 
 }

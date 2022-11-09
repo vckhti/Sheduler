@@ -1,0 +1,54 @@
+.title {
+  display: flex;
+  align-content: space-around;
+  margin: 0 0 50px 0;
+}
+
+.title__text {
+  flex: 1 1;
+  align-self: start;
+  font-size: 16px;
+}
+
+.title__close {
+  align-self: end;
+  display: flex;
+}
+
+.container {
+  display: inline-flex;
+}
+
+.container__text {
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.container__input {
+  width: 250px;
+  // min-width: 50px;
+  margin-bottom: 30px;
+}
+
+.content {
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+
+.content__delete {
+  justify-self: self-start;
+  margin-left: 10px;
+  flex: 0 0;
+  margin-right: 200px;
+}
+
+.content__add {
+  margin-left: 10px;
+}
+
+.content__cancel {
+  margin-left: 10px;
+}
