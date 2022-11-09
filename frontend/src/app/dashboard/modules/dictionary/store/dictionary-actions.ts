@@ -1,6 +1,8 @@
 import {createAction, props} from '@ngrx/store'
 import {ActionTypes} from 'src/app/dashboard/modules/dictionary/store/actionTypes'
 import {clientTypeInterface} from "../types/clientType.interface";
+import {responseDataInterface} from "../../../../shared/types/responseData.interface";
+import {typeOfClientResponseInterface} from "../types/typeOfClientResponse.interface";
 
 export const enterToTypeOfClientsAction = createAction(
   ActionTypes.TYPEOFCLIENTS_ENTER
@@ -8,7 +10,7 @@ export const enterToTypeOfClientsAction = createAction(
 
 export const successFetchTypeOfClientsAction = createAction(
   ActionTypes.TYPEOFCLIENTS_FETCH_SUCCESS,
-  props<{data: any}>()
+  props<{data: typeOfClientResponseInterface}>()
 );
 
 export const fetchTypeOfClientsFailureAction = createAction(

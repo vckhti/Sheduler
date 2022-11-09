@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {clientTypeInterface} from "../types/clientType.interface";
+import {typeOfClientResponseInterface} from "../types/typeOfClientResponse.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DictionaryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   fetchRegions(): Observable<any> {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/allClientTypes';
@@ -17,7 +19,23 @@ export class DictionaryService {
     return this.http.get<any>(url)
   }
 
-  deleteClient(client: clientTypeInterface): Observable<any>{
+  sortByType(data: typeOfClientResponseInterface): Observable<typeOfClientResponseInterface> {
+    let asc: boolean = false;
+    data.data.sort((a: clientTypeInterface, b: clientTypeInterface) => {
+      if (a.type < b.type) {
+        return asc ? 1 : -1;
+      } else if (a.type > b.type) {
+        return asc ? -1 : 1;
+      }
+
+      return 0;
+    });
+    return of(data);
+  }
+
+
+
+  deleteClient(client: clientTypeInterface): Observable<any> {
     const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/deleteClientType';
 
     return this.http.delete<any>(url, {body: {id: client.id}})

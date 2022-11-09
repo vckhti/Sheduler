@@ -15,6 +15,8 @@ import {DictionaryService} from "../services/dictionary.service";
 import {of} from "rxjs";
 import {fetchTypeOfClientsFailureAction} from "src/app/dashboard/modules/dictionary/store/dictionary-actions";
 import {Store} from "@ngrx/store";
+import {responseDataInterface} from "../../../../shared/types/responseData.interface";
+import {typeOfClientResponseInterface} from "../types/typeOfClientResponse.interface";
 
 @Injectable()
 export class RegisterEffect {
@@ -23,7 +25,11 @@ export class RegisterEffect {
       ofType(enterToTypeOfClientsAction),
       switchMap((v) => {
         return this.dictionaryService.fetchRegions().pipe(
-          map((response: any) => {
+          switchMap((response: typeOfClientResponseInterface) => {
+            return this.dictionaryService.sortByType(response)
+          }),
+          map((response: typeOfClientResponseInterface) => {
+            console.log('for normalaze:', response);
             return successFetchTypeOfClientsAction({data: response})
           })/*,
           tap((r) => console.log('r', r))*/
