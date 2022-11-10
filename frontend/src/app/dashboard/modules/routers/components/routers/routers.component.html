@@ -5,21 +5,61 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">id</th>
-      <th scope="col">Тип клиента</th>
-      <th scope="col">Удалить</th>
-      <!--<th scope="col">Удалить</th>-->
-
+      <th scope="col">ID</th>
+      <th scope="col">Имя роутера</th>
+      <th scope="col">IP-адрес</th>
+      <th scope="col">Опрашивать</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of tableData; let i = index">
-      <th class="th-item" scope="row" (click)="editClientType(item)">{{item.routerId}}</th>
-      <td class="tr-item" (click)="editClientType(item)"><span class="edit-svg">{{item.routerIp}}</span>
-        <div ></div>
+    <tr>
+      <td>
+        <input
+          placeholder="Поиск по ID "
+          (keydown.escape)="filterById = null;  filterByValues()"
+          (keydown.backspace)="filterById = null; filterByValues()"
+          (keydown.arrowLeft)="filterById = null; filterByValues()"
+          (keyup)=" filterByValues()"
+          [(ngModel)]="filterById"
+        >
 
       </td>
-      <td><div class="delete-svg" (click)="deleteClientType(item)"></div></td>
+      <td>
+        <input
+          placeholder="Поиск по имени "
+          (keydown.escape)="filterByRouterName = '';  filterByValues()"
+          (keydown.backspace)="filterByRouterName = ''; filterByValues()"
+          (keydown.arrowLeft)="filterByRouterName = ''; filterByValues()"
+          (keyup)=" filterByValues()"
+          [(ngModel)]="filterByRouterName"
+        >
+      </td>
+      <td>
+        <input
+          placeholder="Поиск по IP-адресу маршрутизатора"
+          (keydown.escape)="filterByIp = '';  filterByValues()"
+          (keydown.backspace)="filterByIp = ''; filterByValues()"
+          (keydown.arrowLeft)="filterByIp = ''; filterByValues()"
+          (keyup)=" filterByValues()"
+          [(ngModel)]="filterByIp"
+        >
+      </td>
+      <td>
+        <select
+          (change)="filterByValues()"
+          [(ngModel)]="askRouter">
+          <option selected [ngValue]=null></option>
+          <option [ngValue]="true">Опрашивать</option>
+          <option [ngValue]="false">Не опрашивать</option>
+        </select>
+
+      </td>
+    </tr>
+    <tr *ngFor="let item of tableData; let i = index">
+      <th class="th-item" scope="row" (click)="editClientType(item)">{{item.routerId}}</th>
+      <td class="tr-item" (click)="editClientType(item)"><span class="edit-svg">{{item.routerName}}</span></td>
+      <td class="tr-item"><span class="edit-svg">{{item.routerIp}}</span> </td>
+      <td class="tr-item"><span class="edit-svg">{{item.askRouter}}</span> </td>
 
     </tr>
     </tbody>

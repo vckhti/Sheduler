@@ -9,6 +9,8 @@ import {LoadingModule} from "../../../shared/modules/loading/loading.module";
 import {DefaultDialogComponent} from "./components/default-dialog/default-dialog.component";
 import {RegisterEffect} from "./store/register.effect";
 import {reducers} from "./store/reducers";
+import {PaginationModule} from "../../../shared/modules/pagination/pagination.module";
+import {DictionaryService} from "./services/dictionary.service";
 
 const routes: Routes = [
   {
@@ -27,11 +29,16 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule,
+    PaginationModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('routers', reducers),
     EffectsModule.forFeature([RegisterEffect]),
     LoadingModule
 
-  ]
+  ],
+  providers: [
+    DictionaryService
+]
 })
 export class RoutersModule { }
