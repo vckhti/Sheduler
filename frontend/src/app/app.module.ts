@@ -20,8 +20,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {LoadingModule} from "./shared/modules/loading/loading.module";
-import {reducers} from "./dashboard/modules/dictionary/store/reducers";
-import {DictionaryModule} from "./dashboard/modules/dictionary/dictionary.module";
 
 @NgModule({
   declarations: [

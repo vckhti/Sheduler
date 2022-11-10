@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap, tap} from 'rxjs/operators'
-import {HttpErrorResponse} from '@angular/common/http'
 
 import {
   addTypeOfClientAction, addTypeOfClientsFailureAction,
@@ -28,7 +27,6 @@ export class RegisterEffect {
             return this.dictionaryService.sortByType(response)
           }),
           map((response: typeOfClientResponseInterface) => {
-            console.log('for normalaze:', response);
             return successFetchTypeOfClientsAction({data: response})
           })/*,
           tap((r) => console.log('r', r))*/
@@ -49,7 +47,6 @@ export class RegisterEffect {
         if (!typeOfClient?.typeOfClient?.id) {
           return this.dictionaryService.addClient(typeOfClient.typeOfClient).pipe(
             map((response: any) => {
-              console.log('r1:', response);
               return successAddTypeOfClientAction({newItem: response.data.data})
             }),
             tap(() => this.store.dispatch(enterToTypeOfClientsAction()))
@@ -57,7 +54,6 @@ export class RegisterEffect {
         }
         return this.dictionaryService.editClient(typeOfClient.typeOfClient).pipe(
           map((response: any) => {
-            console.log('r2:', response);
             return successAddTypeOfClientAction({newItem: response.data.data})
           }),
           tap(() => this.store.dispatch(enterToTypeOfClientsAction()))

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {clientTypeInterface} from "../types/clientType.interface";
 import {typeOfClientResponseInterface} from "../types/typeOfClientResponse.interface";
+import {environment} from "../../../../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class DictionaryService {
   }
 
   fetchRegions(): Observable<any> {
-    const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/allClientTypes';
-    const https = 'https://10.5.1.208:8443/api/web/v1/clients/clientTypes/allClientTypes';
+    const url = environment.serverUrl + '/api/web/v1/clients/clientTypes/allClientTypes';
+    const https = environment.serverUrl + 'https://10.5.1.208:8443/api/web/v1/clients/clientTypes/allClientTypes';
 
     return this.http.get<any>(url)
   }
@@ -36,22 +37,20 @@ export class DictionaryService {
 
 
   deleteClient(client: clientTypeInterface): Observable<any> {
-    const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/deleteClientType';
+    const url = environment.serverUrl + '/api/web/v1/clients/clientTypes/deleteClientType';
 
     return this.http.delete<any>(url, {body: {id: client.id}})
   }
 
   addClient(client: clientTypeInterface): Observable<any> {
-    const url = 'http://10.5.1.208:8082/api/web/v1/clients/clientTypes/createClientType';
+    const url = environment.serverUrl + '/api/web/v1/clients/clientTypes/createClientType';
 
-    console.log('clientId', client);
     return this.http.post<any>(url, client)
   }
 
   editClient(client: clientTypeInterface): Observable<any> {
-    const url = `http://10.5.1.208:8082/api/web/v1/clients/clientTypes/modifyClientType`;
+    const url = environment.serverUrl + '/api/web/v1/clients/clientTypes/modifyClientType';
 
-    console.log('edit clientId', client);
 
     return this.http.put<any>(url, client)
   }

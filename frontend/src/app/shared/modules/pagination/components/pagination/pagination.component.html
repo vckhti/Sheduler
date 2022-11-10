@@ -1,4 +1,5 @@
-<ul class="pagination">
+<div class="pagination">
+<ul class="pagination__pages">
   <li
     *ngFor="let page of pages"
     class="page-item"
@@ -6,7 +7,7 @@
   >
     <a (click) = "onClicked(page)" [routerLink]="[urlProps]" [queryParams]="{page: page}" class="page-link">
       {{ page }}
-
     </a>
   </li>
 </ul>
+</div>

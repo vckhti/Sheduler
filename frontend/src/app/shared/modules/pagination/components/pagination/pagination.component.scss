@@ -1,4 +1,12 @@
-.pagination{
-display: table;
+.pagination__pages {
+  margin: 0 auto;
+  display: flex;
 
+  li {
+    list-style-type: none;
+  }
+
+  ul {
+    marker: none;
+  }
 }

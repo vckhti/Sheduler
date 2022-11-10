@@ -36,7 +36,7 @@
       </td>
       <td>
         <input
-          placeholder="Поиск по IP-адресу маршрутизатора"
+          placeholder="Поиск по IP-адресу"
           (keydown.escape)="filterByIp = '';  filterByValues()"
           (keydown.backspace)="filterByIp = ''; filterByValues()"
           (keydown.arrowLeft)="filterByIp = ''; filterByValues()"
@@ -55,13 +55,23 @@
 
       </td>
     </tr>
-    <tr *ngFor="let item of tableData; let i = index">
+    <tr *ngFor="let item of tempArray; let i = index">
       <th class="th-item" scope="row" (click)="editClientType(item)">{{item.routerId}}</th>
       <td class="tr-item" (click)="editClientType(item)"><span class="edit-svg">{{item.routerName}}</span></td>
-      <td class="tr-item"><span class="edit-svg">{{item.routerIp}}</span> </td>
-      <td class="tr-item"><span class="edit-svg">{{item.askRouter}}</span> </td>
+      <td class="tr-item"><span class="edit-svg">{{item.routerIp}}</span></td>
+      <td class="tr-item"><span class="edit-svg">{{item.askRouter}}</span></td>
 
     </tr>
     </tbody>
   </table>
+  <div *ngIf="totalPageForPagination > 0">
+    <mc-pagination
+      [total]="totalPageForPagination"
+      [limit]="limit"
+      [url]="'/routers'"
+      [currentPage]="currentPage"
+      (newItemEvent)="handleCurrentPage($event)"
+
+    ></mc-pagination>
+  </div>
 </div>
